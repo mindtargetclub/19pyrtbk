@@ -1,6 +1,6 @@
 module.exports = {
     publicPath: process.env.NODE_ENV === 'production'
-      ? '/18pyrtbk/'
+      ? '/19pyrtbk/'
       : '/' ,
       // outputDir: "dist",
       // lintOnSave: true,
