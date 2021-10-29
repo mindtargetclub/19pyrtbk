@@ -1,4 +1,10 @@
 <template>
+<div class="row ">
+    <div class="col-12">
+   
+    <span class="Light m-8">下時段預約人數：</span>
+     </div>
+    </div>
   <div class="row">
     <div class="col-4">
       <h3>北北東</h3>
@@ -12,15 +18,16 @@
         item-key="name"
       >
         <template #item="{ element }">
-          <div class="list-group-item">
+          <div class="btn btn-secondary m-1 ">
             {{ element.name }}
+            
           </div>
         </template>
 
         <template #header>
           <div class="btn-group list-group-item" role="group">
-            <button class="btn btn-secondary" @click="add">Add</button>
-            <button class="btn btn-secondary" @click="replace">Replace</button>
+            <button class="btn btn-primary " @click="add">增加</button>
+            <!-- <button class="btn btn-danger" @click="replace">清場</button> -->
           </div>
         </template>
       </draggable>
@@ -31,7 +38,7 @@
 
       <draggable :list="list2" class="list-group" group="a" item-key="name">
         <template #item="{ element }">
-          <div class="list-group-item item">
+          <div class="btn btn-secondary m-1  item">
             {{ element.name }}
           </div>
         </template>
@@ -42,8 +49,8 @@
             role="group"
             aria-label="Basic example"
           >
-            <button class="btn btn-secondary" @click="add2">Add</button>
-            <button class="btn btn-secondary" @click="replace2">Replace</button>
+            <button class="btn btn-primary" @click="add2">增加</button>
+            <!-- <button class="btn btn-secondary" @click="replace2">清場</button> -->
           </div>
         </template>
       </draggable>
@@ -54,7 +61,7 @@
 
       <draggable :list="list3" class="list-group" group="a" item-key="name">
         <template #item="{ element }">
-          <div class="list-group-item item">
+          <div class="btn btn-secondary m-1  ">
             {{ element.name }}
           </div>
         </template>
@@ -65,8 +72,8 @@
             role="group"
             aria-label="Basic example"
           >
-            <button class="btn btn-secondary" @click="add3">Add</button>
-            <button class="btn btn-secondary" @click="replace3">Replace</button>
+            <button class="btn btn-primary" @click="add3">增加</button>
+            <!-- <button class="btn btn-secondary" @click="replace3">清場</button> -->
           </div>
         </template>
       </draggable>
