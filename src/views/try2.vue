@@ -1,16 +1,13 @@
 <template>
-<div class="row ">
-    <div class="col-12 bg-gray-200  "> 
-      <span class="m-8">下時段預約人數： </span>
- <span class="time">  目前時間：{{hour}}:{{mins}}:{{secs}}  </span>
-   
-     </div>
+    <div class="row ">
+      <div class="col-12 bg-gray-200  "> 
+        <span class="m-8">下時段預約人數： </span>
+        <span class="time">  目前時間：{{hour}}:{{mins}}:{{secs}}  </span> 
+      </div>
     </div>
 
-  <div class="flex items-stretch items-center  ">
-    
-  <div class="flex-auto self-start">
-    
+  <div class="flex items-stretch items-center  "> 
+    <div class="flex-auto self-start"> 
     <div class="text-center md:text-left 
               md:items-center md:justify-between md:p-2 
               pt-4 m-1 rounded-2xl
@@ -22,7 +19,7 @@
                   px-1 text-white bg-blue-500" @click="add">+</button>
           <br>
           <span class="inline-block text-lg font-bold 
-            my-1 py-1 px-4 text-white bg-blue-600 rounded-full px-6 "> - /  30 </span>   
+            my-1 py-1 px-4 text-white bg-blue-600 rounded-full px-6 "> {{ v[0] }}  /  30 </span>   
         </div> 
 
         <span class="text-gray-900 text-base ">操作建議提示</span>  
@@ -38,8 +35,10 @@
       >
         <template #item="{ element }">
           <div class=" bg-gray-300 px-1 my-2 border rounded shadow "> 
-             
-            <input type="time" id="appt" name="appt" v-model="element.ckintime"
+            <!-- <input type="time" value="13:30"  /> -->
+
+            <input type="time" id="appt" name="appt" v-model="element.ckintime" @change="setAlarm(element.ckintime)"
+                   placeholder='12:00am'
                    class="w-full text-sm text-gray-400 
                    rounded-xl mt-3 mb-1 py-1 text-center
                    focus:outline-none focus:ring focus:border-blue-300"
@@ -48,29 +47,47 @@
             <input type="text" name="price" id="price" v-model="element.name"
                               class="w-full  text-gray-400 rounded-full my-1 py-1 text-center 
                               focus:outline-none focus:ring focus:border-blue-300" 
-                              placeholder="誰報名？"  > 
+                              placeholder="誰報名？"  >  
 
-            <div class="flex ">
+            <div class="flex flex-row items-center"> 
               <div class="flex-auto ">
-                <button class="flex inline-block rounded-full 
-                text-ms px-1 m-1  text-white bg-blue-400" @click="add">...</button>
+                <div class="  inline-block rounded-full h-4 w-4 
+                              mt-1
+                              bg-green-500 animate-pulse 
+                              border-b-4 border-r-4
+                              border-green-700 ">
+                </div> 
               </div>
+              
               <div class="flex-auto ">
-                <select v-model="element.stus" 
-                      class=" flex inline-block rounded-full text-base   
-                               w-7/8 pl-1 my-1 text-white bg-blue-400"> 
+                <select v-model="element.stus"   
+                        class=" inline-block rounded-xl appearance-none 
+                                text-base text-white text-center 
+                                my-1 px-1 bg-blue-400"> 
                   <option value="1" selected disabled hidden >首次</option>
                   <option value="2">加時</option>
                   <option value="3">離場</option>
                   <option value="4">待確認</option>
                   <option value="5">其他</option>
+                </select>  
+              </div> 
+
+              <div class="flex-auto ">
+                <select v-model="element.playerAmt" 
+                      class=" flex w-full rounded-xl appearance-none  
+                              my-1 text-base text-white text-center
+                              inline-block bg-blue-500 font-bold border-b-4  
+                              hover:bg-blue-400
+                              border-blue-700
+                              hover:border-blue-500 "> 
+                  <option value="1" selected >1位</option>
+                  <option value="2">2位</option>
+                  <option value="3">3位</option>
+                  <option value="4">4位</option>
+                  <option value="5">5位</option>
                 </select> 
               </div>
-            </div>
-             
- 
-            
-            
+            </div> 
           </div>
         </template>
 
@@ -91,7 +108,7 @@
                   px-1 text-white bg-blue-500" @click="add">+</button>
           <br>
           <span class="inline-block text-lg font-bold 
-            my-1 py-1 px-4 text-white bg-blue-600 rounded-full px-6 "> - /  30 </span>   
+            my-1 py-1 px-4 text-white bg-blue-600 rounded-full px-6 "> {{ v[1] }} /  30 </span>   
         </div> 
 
         <span class="text-gray-00 text-base ">操作建議提示</span>  
@@ -106,6 +123,8 @@
         item-key="name"
       >
         <template #item="{ element }">
+
+          
           <div class=" bg-gray-300 px-1 my-2 border rounded shadow "> 
              
             <input type="time" id="appt" name="appt" v-model="element.ckintime"
@@ -113,29 +132,50 @@
                    rounded-xl mt-3 mb-1 py-1 text-center
                    focus:outline-none focus:ring focus:border-blue-300"
                    min="06:00" max="22:00" required  >  
-
             <input type="text" name="price" id="price" v-model="element.name"
                               class="w-full  text-gray-400 rounded-full my-1 py-1 text-center 
                               focus:outline-none focus:ring focus:border-blue-300" 
                               placeholder="誰報名？"  > 
 
-            <div class="flex ">
+            <div class="flex flex-row items-center"> 
               <div class="flex-auto ">
-                <button class="flex inline-block rounded-full 
-                text-ms px-1 m-1  text-white bg-blue-400" @click="add">...</button>
+                <div class="  inline-block rounded-full h-4 w-4 
+                              mt-1
+                              bg-green-500 animate-pulse 
+                              border-b-4 border-r-4
+                              border-gray-600 ">
+                </div> 
               </div>
+              
               <div class="flex-auto ">
-                <select v-model="element.stus" 
-                      class=" flex inline-block rounded-full text-base   
-                               w-7/8 pl-1 my-1 text-white bg-blue-400"> 
+                <select v-model="element.stus"   
+                        class=" inline-block rounded-xl appearance-none 
+                                text-base text-white text-center 
+                                my-1 px-1 bg-blue-400"> 
                   <option value="1" selected disabled hidden >首次</option>
                   <option value="2">加時</option>
                   <option value="3">離場</option>
                   <option value="4">待確認</option>
                   <option value="5">其他</option>
+                </select>  
+              </div> 
+
+              <div class="flex-auto ">
+                <select v-model="element.playerAmt" 
+                      class=" flex w-full rounded-xl appearance-none  
+                              my-1 text-base text-white text-center
+                              inline-block bg-blue-500 font-bold border-b-4  
+                              hover:bg-blue-400
+                              border-blue-700
+                              hover:border-blue-500 "> 
+                  <option value="1" selected >1位</option>
+                  <option value="2">2位</option>
+                  <option value="3">3位</option>
+                  <option value="4">4位</option>
+                  <option value="5">5位</option>
                 </select> 
               </div>
-            </div>
+            </div> 
              
  
             
@@ -146,10 +186,7 @@
         <template #header> 
         </template>
       </draggable>
-  </div>
-
-
-
+  </div> 
     <div class="flex-auto self-start">
     
     <div class="text-center md:text-left 
@@ -159,10 +196,10 @@
         <div class="text-xl font-semibold"> 
           <span class="w-1/2 text-blue-500 px-1 ">南場</span> 
           <button class="inline-block rounded-full text-lg  
-                  px-1 text-white bg-blue-500" @click="add">+</button>
+                  px-1 text-white bg-blue-500" @click="add3">+</button>
           <br>
           <span class="inline-block text-lg font-bold 
-            my-1 py-1 px-4 text-white bg-blue-600 rounded-full px-6 "> - /  30 </span>   
+            my-1 py-1 px-4 text-white bg-blue-600 rounded-full px-6 "> {{ v[2] }}  /  30 </span>   
         </div> 
 
         <span class="text-gray-00 text-base ">操作建議提示</span>  
@@ -179,7 +216,7 @@
         <template #item="{ element }">
           <div class=" bg-gray-300 px-1 my-2 border rounded shadow "> 
              
-            <input  type="time" id="appt" name="appt" v-model="element.ckintime"
+            <input  type="time" id="appt" name="appt" v-model="element.ckintime" va
                     class="w-full text-sm text-gray-400 
                     rounded-xl mt-3 mb-1 py-1 text-center
                     focus:outline-none focus:ring focus:border-blue-300"
@@ -190,20 +227,42 @@
                     focus:outline-none focus:ring focus:border-blue-300" 
                     placeholder="誰報名？"  > 
 
-            <div class="flex ">
+            <div class="flex flex-row items-center"> 
               <div class="flex-auto ">
-                <button class="flex inline-block rounded-full 
-                        text-ms px-1 m-1 text-white bg-blue-400" @click="add">...</button>
+                <div class="  inline-block rounded-full h-4 w-4 
+                              mt-1
+                              bg-green-500 animate-pulse 
+                              border-b-4 border-r-4
+                              border-gray-600 ">
+                </div> 
               </div>
+              
               <div class="flex-auto ">
-                <select v-model="element.stus" 
-                        class=" flex inline-block rounded-full text-base   
-                                w-7/8 pl-1 my-1 text-white bg-blue-400" > 
+                <select v-model="element.stus"   
+                        class=" inline-block rounded-xl appearance-none 
+                                text-base text-white text-center 
+                                my-1 px-1 bg-blue-400"> 
                   <option value="1" selected disabled hidden >首次</option>
                   <option value="2">加時</option>
                   <option value="3">離場</option>
                   <option value="4">待確認</option>
                   <option value="5">其他</option>
+                </select>  
+              </div> 
+
+              <div class="flex-auto ">
+                <select v-model="element.playerAmt" 
+                      class=" flex w-full rounded-xl appearance-none  
+                              my-1 text-base text-white text-center
+                              inline-block bg-blue-500 font-bold border-b-4  
+                              hover:bg-blue-400
+                              border-blue-700
+                              hover:border-blue-500 "> 
+                  <option value="1" selected >1位</option>
+                  <option value="2">2位</option>
+                  <option value="3">3位</option>
+                  <option value="4">4位</option>
+                  <option value="5">5位</option>
                 </select> 
               </div>
             </div> 
@@ -213,59 +272,136 @@
         <template class="bg-red-300" #header> 
         </template>
       </draggable>
-  </div>
-
+  </div> 
 </div>
  
 </template>
 
 <script>
-// setInterval(clock.updateTime, 1000);
+
 import draggable from "vuedraggable";
+
 let id = 1;
 export default { 
   name: "two-list-headerslots",
   display: "Two list header slot",
   order: 14,
+
   components: {
     draggable
   },
+
   data() {
     return {
+      v:[],
+      orders : [
+          {title: 'Google Pixel', price: 3000},      
+          {title: 'Samsung Galaxy S8', price: 2500},
+          {title: 'iPhone 7', price: 5000}
+        ],
+      now_R1_playerAmt:"",
+      now_R2_playerAmt:"",
+      now_R3_playerAmt:"",
       // items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
       hour: '--', 
       mins: '--', 
       secs: '--', 
       state: true,
-    currentTime: Date.now(),
-    interval: null,
+      currentTime: Date.now(),
+      interval: null,
       time: '',
       name: 'BootstrapVue',
       show: true,
       list: [
-        { name: "John 1", id: 0 ,ckintime :"" ,stus :"1",color:"" },
-        { name: "Joao 2", id: 1 ,ckintime :"" ,stus :"2",color:""},
-        { name: "Jean 3", id: 2 ,ckintime :"" ,stus :"1",color:""}
+        { name: "John 1", id: 0 ,ckintime :"13:10" ,ckoutime :"",stus :"1",color:"" ,playerAmt:2},
+        { name: "Joao 2", id: 1 ,ckintime :"" ,ckoutime :"",stus :"2",color:"",playerAmt:2},
+        { name: "Jean 3", id: 2 ,ckintime :"" ,ckoutime :"",stus :"1",color:"",playerAmt:3}
       ],
       list2: [
-        { name: "Jonny 4", id: 3,ckintime :"" ,stus :"1",color:"" },
-        { name: "Guisepe 3", id: 4 ,ckintime :"" ,stus :"2",color:""}
+        { name: "Jonny 4", id: 3,ckintime :""    ,stus :"1",color:"",playerAmt:5 },
+        { name: "Guisepe 3", id: 4 ,ckintime :"" ,stus :"2",color:"",playerAmt:1}
       ],
       list3: [
-        { name: "Jonny 6", id: 3,ckintime :"" ,stus :"1",color:"" },
-        { name: "Guisepe 2", id: 4,ckintime :"" ,stus :"2",color:"" }
+        { name: "Jonny 6", id: 3,ckintime :"" ,stus :"1",color:"" ,playerAmt:2},
+        { name: "Guisepe 2", id: 4,ckintime :"" ,stus :"2",color:"" ,playerAmt:4}
       ]
     };
   },
-  watch: {
+
+  watch: { 
     show(newVal) {
       console.log('Alert is now ' + (newVal ? 'visible' : 'hidden'))
-    }
+    }, 
+     
   },
   created(){
-    this.updateClock();
+    this.updateClock(); 
+    this.sumList_One();
+    this.totalPlay(this.list,this.list2,this.list3);
   },
   methods: { 
+
+totalPlay: function(ary1,ary2,ary3){ 
+  let total_R1 = []; 
+  let total_R2 = []; 
+  let total_R3 = []; 
+  Object.entries(ary1).forEach(([key, val]) => {
+      total_R1.push(val.playerAmt) // the value of the current key.
+  });
+  Object.entries(ary2).forEach(([key, val]) => {
+      total_R2.push(val.playerAmt) // the value of the current key.
+  });
+  Object.entries(ary3).forEach(([key, val]) => {
+      total_R3.push(val.playerAmt) // the value of the current key.
+  });
+  this.v[0] = total_R1.reduce(function(total, num){ return total + num }, 0);
+  this.v[1] = total_R2.reduce(function(total, num){ return total + num }, 0);
+  this.v[2] = total_R3.reduce(function(total, num){ return total + num }, 0);
+
+
+  return this.v 
+},
+
+
+
+
+
+    sumList_One() {
+          
+        var sum=0;
+          for (var i = 0; i < this.list.length; i++) {
+              sum += parseInt(this.list[i].playerAmt);
+              console.log(sum );
+// console.log('this.list['+i +'].playerAmt = ' + this.list[i].playerAmt );
+          };
+          sum = this.now_R1_playerAmt;
+          return sum ;
+
+      },
+    setAlarm(ckintm) { 
+      var temp_T = ckintm.split(':', 2);
+          temp_T[0] = parseInt(temp_T[0]) + 1; 
+      var return_T = temp_T[0] + temp_T[1]
+      alert("test = " + return_T );  
+
+      // var date = new Date(); // Todays date - the Date() constructor will default to the current date/time if no value is passed to it
+      // var addDays = 4;
+      // var addHours = 3;
+      // var addMinutes = 2;
+      // var addSeconds = 1;
+      // // Add hours
+      // // The getTime() method returns the number of milliseconds since January 1, 1970, so we can use it to alter the value of the date by any number of milliseconds
+      // date.setTime(date.getTime() + (addHours * 60 * 60 * 1000)); // Convert hours to milliseconds - 60 minutes to an hour, 60 seconds to a minute, 1000 milliseconds to a second
+      // // Add days
+      // date.setTime(date.getTime() + (addDays * 24 * 60 * 60 * 1000)); // Similar to above, but additionally multiplying by 24 as there are 24 hours in a day
+      // // Add minutes
+      // date.setTime(date.getTime() + (addMinutes * 60 * 1000)); // Convert minutes to milliseconds
+      // // Add seconds
+      // date.setTime(date.getTime() + (addSeconds *  1000)); // Convert seconds to milliseconds
+      // // console.log(date); 
+      // alert("dt = " + date ); 
+    },
+ 
     updateClock(){
       var ctx = this;
       setInterval(function(){
@@ -278,31 +414,48 @@ export default {
         ctx.hour = (hour < 10) ? '0' + hour : hour;
         ctx.mins = (min < 10) ? '0' + min : min;
         ctx.secs = (sec < 10) ? '0' + sec : sec;
-      })},
-    updateTime() {
-      this.time = new Date().toLocaleTimeString()
-    }, 
+
+
+      })},  
     toggle() {
       console.log('Toggle button clicked')
       this.show = !this.show
     },
     dismissed() {
       console.log('Alert dismissed')
-    },
-   
+    },  
+     
     add: function() {
-      this.list.push({ name: " " + id, id: id++ });
+      this.list.push({ name: "東北貴賓" + id, id: id++ });
     },
     replace: function() {
       this.list = [{ name: "Edgard", id: id++ }];
     },
     add2: function() {
-      this.list2.push({ name: "Juan " + id, id: id++ });
+      this.list2.push({ name: "北場貴賓" + id, id: id++ });
     },
     replace2: function() {
       this.list2 = [{ name: "Edgard", id: id++ }];
+    },
+    add3: function() {
+      this.list3.push({ name: "南場貴賓" + id,ckintime :"",stus :"1", id: id++ });
+    },
+    replace3: function() {
+      this.list3 = [{   name: "Edgard"      ,ckintime :"" ,stus :"1", id: id++ }];
     }
   }, 
 };
 </script>
-<style scoped></style>
+<style>
+/* CHECKBOX TOGGLE SWITCH */
+/* @apply rules for documentation, these do not work as inline style */
+.toggle-checkbox:checked {
+  @apply: right-0 border-green-400;
+  right: 0;
+  border-color: #68D391;
+}
+.toggle-checkbox:checked + .toggle-label {
+  @apply: bg-green-400;
+  background-color: #68D391;
+}
+</style>

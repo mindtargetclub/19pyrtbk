@@ -3,9 +3,9 @@
   <div class="w-full bg-green-900 my-3 " id="nav">
     <!-- <router-link to="/">棚區平面圖</router-link> |   -->
     <router-link class="text-sm text-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 mx-1 rounded " to="/about">操作說明</router-link> 
-    <router-link class="text-xl text-center bg-yellow-600 hover:bg-green-700 text-white font-bold py-2 px-2 mx-1 rounded " to="/"> 靶位現況 </router-link> 
+    <router-link class="text-sm text-center bg-yellow-600 hover:bg-green-700 text-white font-bold py-2 px-2 mx-1 rounded " to="/"> 靶位現況 </router-link> 
     <router-link class="text-sm text-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 mx-1 rounded " to="/posGM"> 本日訂單 </router-link> 
-    <router-link class="text-sm text-center bg-green-500 hover:bg-green-800 text-white font-bold py-1.5 px-1 mx-1 rounded " to="/posGM"> 使用者 </router-link> 
+    <router-link class="text-sm text-center bg-green-500 hover:bg-green-800 text-white font-bold py-1.5 px-1 mx-1 rounded " to="/posGM"> 帳號 </router-link> 
     <!-- <router-link to="/TutorialsList">Laaaaaa</router-link>  |   -->
      
   </div>
