@@ -1,48 +1,99 @@
 <template>
     <div class="row ">
-      <div class="col-12 bg-gray-200  "> 
-        <span class="m-8">下時段預約人數： </span>
-        <span class="time">  目前時間：{{hour}}:{{mins}}:{{secs}}  </span> 
+      <!-- <div class="col-12 bg-gray-200  "> 
+
+        <span class="">本時段：{{ v[0] + v[1] + v[2] }}  </span>
+        <span class="">下時段預約人數： </span>
+        
+      </div> -->
+
+      <div class="bg-indigo-900 py-2 lg:px-4">
+        
+        <p class="time pr-5 text-gray-100 text-right ">  目前時間：{{hour}}:{{mins}}:{{secs}}  </p> 
+       
+ <!-- <v-text class="text-gray-100" >{{ list }}</v-text>
+<hr> -->
+<rawDisplayer class="text-gray-100" :value="list" title="List" />
+        
+        <div role="alert" class="flex px-2 pb-2 bg-indigo-800 items-center text-indigo-100 leading-none  rounded-full flex lg:inline-flex">
+          <div class="flex-auto ">
+              <span class=" rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">
+                本時段</span>
+              <span class="font-bold mr-2 text-xl text-left ">
+                    {{ v[0] + v[1] + v[2] }}</span> 
+          </div>
+          <div class="flex-auto  ">
+              <span class=" rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">
+                 下時段</span>
+              <span class="font-bold mr-2 text-xl text-left">
+                    {{ v[0] + v[1] + v[2] }}</span> 
+          </div>
+          <div class="flex-auto ">
+              <span class="  rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">
+                包場 ｜ 會員</span>
+              <span class="font-bold mr-2 text-xl text-left ">
+                    {{ v[0] + v[1] + v[2] }}</span> 
+          </div>
+        </div>
+        
+           
+
+        <!-- <div class="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+          <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">
+                本時段</span>
+          <span class="font-semibold mr-2 text-left flex-auto">
+                {{ v[0] + v[1] + v[2] }}</span> 
+        </div>
+
+                <div class="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+          <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">
+                下時段</span>
+          <span class="font-semibold mr-2 text-left flex-auto">
+                {{ v[0] + v[1] + v[2] }}</span> 
+        </div> -->
+
       </div>
     </div>
 
+
+
   <div class="flex items-stretch items-center  "> 
-    <div class="flex-auto self-start"> 
-    <div class="text-center md:text-left 
-              md:items-center md:justify-between md:p-2 
-              pt-4 m-1 rounded-2xl
-              bg-blue-100 rounded-md">
+    <div class="flex-1 self-start"> 
+    <div class="text-center md:text-left bg-blue-100
+                md:items-center md:justify-between pt-4 pb-2 mt-0 ">
               
         <div class="text-xl font-semibold"> 
           <span class="w-1/2 text-blue-500 px-1 ">北北東</span> 
           <button class="inline-block rounded-full text-lg  
-                  px-1 text-white bg-blue-500" @click="add">+</button>
+                  px-2 text-white bg-blue-500" @click="add">+</button>
           <br>
-          <span class="inline-block text-lg font-bold 
-            my-1 py-1 px-4 text-white bg-blue-600 rounded-full px-6 "> {{ v[0] }}  /  30 </span>   
+          <span class="inline-block text-base font-bold 
+            my-1 py-1 px-2 text-white bg-blue-600 rounded-full px-6 "> {{ v[0] }}  /  {{ roomsize[0] }}  </span>   
         </div> 
 
-        <span class="text-gray-900 text-base ">操作建議提示</span>  
-      </div> 
-
+        <span class="text-gray-900 text-sm ">操作建議提示</span>  
+      </div>  
       <draggable
         id="first"
         data-source="juju"
         :list="list"
-        class="list-group border bg-gray-800 focus:outline-none focus:ring focus:border-blue-300"
+        class="list-group bg-gray-400 focus:outline-none focus:ring focus:border-blue-300"
         group="a"
         item-key="name"
       >
         <template #item="{ element }">
-          <div class=" bg-gray-300 px-1 my-2 border rounded shadow "> 
+          <div class=" bg-gray-300 px-1 my-1.5 mx-1.5 border-b-8 border-gray-600 rounded-xl shadow "> 
             <!-- <input type="time" value="13:30"  /> -->
-
+            <v-text class=" pl-3 text-gray-600 text-sm "> Start Time</v-text>
             <input type="time" id="appt" name="appt" v-model="element.ckintime" @change="setAlarm(element.ckintime)"
                    placeholder='12:00am'
                    class="w-full text-sm text-gray-400 
-                   rounded-xl mt-3 mb-1 py-1 text-center
+                   rounded-xl mb-1 py-1 text-center
                    focus:outline-none focus:ring focus:border-blue-300"
-                   min="06:00" max="22:00" required  >  
+                   min="06:00" max="22:00" required  >   
+
+            <!-- <div v-if="element.ckintime >=hour"   class="text-xs text-success">很棒，你及格了！</div>
+            <div v-else="element.ckintime <=hour" class="text-xs text-danger">不及格！</div> -->
 
             <input type="text" name="price" id="price" v-model="element.name"
                               class="w-full  text-gray-400 rounded-full my-1 py-1 text-center 
@@ -50,14 +101,23 @@
                               placeholder="誰報名？"  >  
 
             <div class="flex flex-row items-center"> 
-              <div class="flex-auto ">
-                <div class="  inline-block rounded-full h-4 w-4 
-                              mt-1
-                              bg-green-500 animate-pulse 
-                              border-b-4 border-r-4
-                              border-green-700 ">
-                </div> 
-              </div>
+              <div class="flex-auto "> 
+
+                  <!-- <input type="text" v-model="score" class="form-control"> -->
+
+                  <div v-if="element.ckintime.split(':', 2)[0]+1<=hour  " 
+                       class="  inline-block rounded-full h-4 w-4 
+                                mt-1
+                                bg-green-500 animate-pulse 
+                                border-b-4 border-r-4
+                                border-green-700 "> </div>
+                  <div v-else="element.ckintime.split(':', 2)[0]+1>=hour "   
+                       class="  inline-block rounded-full h-4 w-4 
+                                mt-1 animate-pulse
+                                border-b-4 border-r-4
+                                bg-red-500  
+                                border-red-700 "> </div> 
+                  </div>
               
               <div class="flex-auto ">
                 <select v-model="element.stus"   
@@ -80,6 +140,7 @@
                               hover:bg-blue-400
                               border-blue-700
                               hover:border-blue-500 "> 
+                  <option value="0">0位</option>
                   <option value="1" selected >1位</option>
                   <option value="2">2位</option>
                   <option value="3">3位</option>
@@ -96,183 +157,188 @@
       </draggable>
   </div>
 
-  <div class="flex-auto self-start">
-    
-    <div class="text-center md:text-left 
-              md:items-center md:justify-between md:p-2 pt-4 m-1 rounded-2xl
-              bg-blue-200 rounded-md">
-              
-        <div class="text-xl font-semibold"> 
-          <span class="w-1/2 text-blue-500 px-1 ">北場</span> 
-          <button class="inline-block rounded-full text-lg  
-                  px-1 text-white bg-blue-500" @click="add">+</button>
-          <br>
-          <span class="inline-block text-lg font-bold 
-            my-1 py-1 px-4 text-white bg-blue-600 rounded-full px-6 "> {{ v[1] }} /  30 </span>   
-        </div> 
+    <div class="flex-1 self-start"> 
+      <div class="text-center md:text-left bg-blue-200 
+                md:items-center md:justify-between pt-4 pb-2 mt-0 ">
+                
+          <div class="text-xl font-semibold"> 
+            <span class="w-1/2 text-blue-500 px-1 ">北場</span> 
+            <button class="inline-block rounded-full text-lg  
+                    px-2 text-white bg-blue-500" @click="add">+</button>
+            <br> 
+            <span class="inline-block text-base font-bold 
+              my-1 py-1 px-2 text-white bg-blue-600 rounded-full px-6 "> {{ v[1] }} /  {{ roomsize[1] }} </span>   
+          </div> 
 
-        <span class="text-gray-00 text-base ">操作建議提示</span>  
-      </div> 
-
-      <draggable
-        id="2"
-        data-source="juju"
-        :list="list2"
-        class="list-group border bg-gray-500 focus:outline-none focus:ring focus:border-blue-300"
-        group="a"
-        item-key="name"
-      >
-        <template #item="{ element }">
-
-          
-          <div class=" bg-gray-300 px-1 my-2 border rounded shadow "> 
-             
-            <input type="time" id="appt" name="appt" v-model="element.ckintime"
-                   class="w-full text-sm text-gray-400 
-                   rounded-xl mt-3 mb-1 py-1 text-center
-                   focus:outline-none focus:ring focus:border-blue-300"
-                   min="06:00" max="22:00" required  >  
-            <input type="text" name="price" id="price" v-model="element.name"
-                              class="w-full  text-gray-400 rounded-full my-1 py-1 text-center 
-                              focus:outline-none focus:ring focus:border-blue-300" 
-                              placeholder="誰報名？"  > 
-
-            <div class="flex flex-row items-center"> 
-              <div class="flex-auto ">
-                <div class="  inline-block rounded-full h-4 w-4 
-                              mt-1
-                              bg-green-500 animate-pulse 
-                              border-b-4 border-r-4
-                              border-gray-600 ">
-                </div> 
-              </div>
-              
-              <div class="flex-auto ">
-                <select v-model="element.stus"   
-                        class=" inline-block rounded-xl appearance-none 
-                                text-base text-white text-center 
-                                my-1 px-1 bg-blue-400"> 
-                  <option value="1" selected disabled hidden >首次</option>
-                  <option value="2">加時</option>
-                  <option value="3">離場</option>
-                  <option value="4">待確認</option>
-                  <option value="5">其他</option>
-                </select>  
-              </div> 
-
-              <div class="flex-auto ">
-                <select v-model="element.playerAmt" 
-                      class=" flex w-full rounded-xl appearance-none  
-                              my-1 text-base text-white text-center
-                              inline-block bg-blue-500 font-bold border-b-4  
-                              hover:bg-blue-400
-                              border-blue-700
-                              hover:border-blue-500 "> 
-                  <option value="1" selected >1位</option>
-                  <option value="2">2位</option>
-                  <option value="3">3位</option>
-                  <option value="4">4位</option>
-                  <option value="5">5位</option>
-                </select> 
-              </div>
-            </div> 
-             
- 
+          <span class="text-gray-00 text-sm ">操作建議提示</span>  
+        </div>  
+        <draggable
+          id="2"
+          data-source="juju"
+          :list="list2"
+          class="list-group bg-gray-900 focus:outline-none focus:ring focus:border-blue-300"
+          group="a"
+          item-key="name"
+          @change="RealPlayer"
+        >
+          <template #item="{ element }"> 
             
-            
-          </div>
-        </template>
-
-        <template #header> 
-        </template>
-      </draggable>
-  </div> 
-    <div class="flex-auto self-start">
-    
-    <div class="text-center md:text-left 
-              md:items-center md:justify-between md:p-2 pt-4 m-1 rounded-2xl
-              bg-blue-100 rounded-md">
-              
-        <div class="text-xl font-semibold"> 
-          <span class="w-1/2 text-blue-500 px-1 ">南場</span> 
-          <button class="inline-block rounded-full text-lg  
-                  px-1 text-white bg-blue-500" @click="add3">+</button>
-          <br>
-          <span class="inline-block text-lg font-bold 
-            my-1 py-1 px-4 text-white bg-blue-600 rounded-full px-6 "> {{ v[2] }}  /  30 </span>   
-        </div> 
-
-        <span class="text-gray-00 text-base ">操作建議提示</span>  
-      </div> 
-
-      <draggable
-        id="333"
-        data-source="juju"
-        :list="list3"
-        class="list-group border bg-gray-300 focus:outline-none focus:ring focus:border-blue-300"
-        group="a"
-        item-key="name"
-      >
-        <template #item="{ element }">
-          <div class=" bg-gray-300 px-1 my-2 border rounded shadow "> 
-             
-            <input  type="time" id="appt" name="appt" v-model="element.ckintime" va
+            <div class=" bg-gray-300 px-1 my-1.5 mx-1.5 border-b-8 border-gray-500 rounded-xl shadow "> 
+              <v-text class=" pl-3 text-gray-600 text-sm "> Start Time</v-text>
+              <input type="time" id="appt" name="appt" v-model="element.ckintime" @change="setAlarm(element.ckintime)"
+                    placeholder='12:00am'
                     class="w-full text-sm text-gray-400 
-                    rounded-xl mt-3 mb-1 py-1 text-center
+                    rounded-xl mb-1 py-1 text-center
                     focus:outline-none focus:ring focus:border-blue-300"
-                    min="06:00" max="22:00" required  >  
+                    min="06:00" max="22:00" required  >
 
-            <input  type="text" name="price" id="price" v-model="element.name"
-                    class="w-full  text-gray-400 rounded-full my-1 py-1 text-center 
-                    focus:outline-none focus:ring focus:border-blue-300" 
-                    placeholder="誰報名？"  > 
 
-            <div class="flex flex-row items-center"> 
-              <div class="flex-auto ">
-                <div class="  inline-block rounded-full h-4 w-4 
-                              mt-1
-                              bg-green-500 animate-pulse 
-                              border-b-4 border-r-4
-                              border-gray-600 ">
+              <input type="text" name="price" id="price" v-model="element.name"
+                                class="w-full  text-gray-400 rounded-full my-1 py-1 text-center 
+                                focus:outline-none focus:ring focus:border-blue-300" 
+                                placeholder="誰報名？"  > 
+
+              <div class="flex flex-row items-center"> 
+                <div class="flex-auto ">
+                  <div class="  inline-block rounded-full h-4 w-4 
+                                mt-1
+                                bg-green-500 animate-pulse 
+                                border-b-4 border-r-4
+                                border-gray-600 ">
+                  </div> 
+                </div>
+                
+                <div class="flex-auto ">
+                  <select v-model="element.stus"   
+                          class=" inline-block rounded-xl appearance-none 
+                                  text-base text-white text-center 
+                                  my-1 px-1 bg-blue-400"> 
+                    <option value="1" selected disabled hidden >首次</option>
+                    <option value="2">加時</option>
+                    <option value="3">離場</option>
+                    <option value="4">待確認</option>
+                    <option value="5">其他</option>
+                  </select>  
                 </div> 
-              </div>
-              
-              <div class="flex-auto ">
-                <select v-model="element.stus"   
-                        class=" inline-block rounded-xl appearance-none 
-                                text-base text-white text-center 
-                                my-1 px-1 bg-blue-400"> 
-                  <option value="1" selected disabled hidden >首次</option>
-                  <option value="2">加時</option>
-                  <option value="3">離場</option>
-                  <option value="4">待確認</option>
-                  <option value="5">其他</option>
-                </select>  
+
+                <div class="flex-auto ">
+                  <select v-model="element.playerAmt" 
+                        class=" flex w-full rounded-xl appearance-none  
+                                my-1 text-base text-white text-center
+                                inline-block bg-blue-500 font-bold border-b-4  
+                                hover:bg-blue-400
+                                border-blue-700
+                                hover:border-blue-500 "> 
+                    <option value="0">0位</option>
+                    <option value="1" selected >1位</option>
+                    <option value="2">2位</option>
+                    <option value="3">3位</option>
+                    <option value="4">4位</option>
+                    <option value="5">5位</option>
+                  </select> 
+                </div>
               </div> 
+              
+  
+              
+              
+            </div>
+          </template>
 
-              <div class="flex-auto ">
-                <select v-model="element.playerAmt" 
-                      class=" flex w-full rounded-xl appearance-none  
-                              my-1 text-base text-white text-center
-                              inline-block bg-blue-500 font-bold border-b-4  
-                              hover:bg-blue-400
-                              border-blue-700
-                              hover:border-blue-500 "> 
-                  <option value="1" selected >1位</option>
-                  <option value="2">2位</option>
-                  <option value="3">3位</option>
-                  <option value="4">4位</option>
-                  <option value="5">5位</option>
-                </select> 
-              </div>
-            </div> 
-          </div>
-        </template>
+          <template #header> 
+          </template>
+        </draggable>
+    </div> 
+    <div class="flex-1 self-start"> 
+      <div class="text-center md:text-left bg-blue-100 
+                md:items-center md:justify-between pt-4 pb-2 mt-0 ">
+                
+          <div class="text-xl font-semibold"> 
+            <span class="w-1/2 text-blue-500 px-1 ">南場</span> 
+            <button class="inline-block rounded-full text-lg  
+                    px-2 text-white bg-blue-500" @click="add3">+</button>
+            <br>
+            <span class="inline-block text-base font-bold 
+              my-1 py-1 px-2 text-white bg-blue-600 rounded-full px-6 "> {{ v[2] }}  /  {{ roomsize[2] }} </span>   
+          </div> 
 
-        <template class="bg-red-300" #header> 
-        </template>
-      </draggable>
-  </div> 
+          <span class="text-gray-00 text-sm ">操作建議提示</span>  
+        </div>  
+        <draggable
+          id="333"
+          data-source="juju"
+          :list="list3"
+          class="list-group bg-gray-400 focus:outline-none focus:ring focus:border-blue-300"
+          group="a"
+          item-key="name"
+        >
+          <template #item="{ element }">
+            <div class=" bg-gray-300 px-1 my-1.5 mx-1.5 border-b-8 border-gray-600 rounded-xl shadow "> 
+              <v-text class=" pl-3 text-gray-600 text-sm "> Start Time</v-text> 
+              <input type="time" id="appt" name="appt" v-model="element.ckintime" @change="setAlarm(element.ckintime)"
+                    placeholder='12:00am'
+                    class="w-full text-sm text-gray-400 
+                    rounded-xl mb-1 py-1 text-center
+                    focus:outline-none focus:ring focus:border-blue-300"
+                    min="06:00" max="22:00" required  >
+              <!-- <input  type="time" id="appt" name="appt" v-model="element.ckintime" va
+                      class="w-full text-sm text-gray-400 
+                      rounded-xl mt-1 mb-1 py-1 text-center
+                      focus:outline-none focus:ring focus:border-blue-300"
+                      min="06:00" max="22:00" required  >   -->
+
+              <input  type="text" name="price" id="price" v-model="element.name"
+                      class="w-full  text-gray-400 rounded-full my-1 py-1 text-center 
+                      focus:outline-none focus:ring focus:border-blue-300" 
+                      placeholder="誰報名？"  > 
+
+              <div class="flex flex-row items-center"> 
+                <div class="flex-auto ">
+                  <div class="  inline-block rounded-full h-4 w-4 
+                                mt-1
+                                bg-green-500 animate-pulse 
+                                border-b-4 border-r-4
+                                border-gray-600 ">
+                  </div> 
+                </div>
+                
+                <div class="flex-auto ">
+                  <select v-model="element.stus"   
+                          class=" inline-block rounded-xl appearance-none 
+                                  text-base text-white text-center 
+                                  my-1 px-1 bg-blue-400"> 
+                    <option value="1" selected disabled hidden >首次</option>
+                    <option value="2">加時</option>
+                    <option value="3">離場</option>
+                    <option value="4">待確認</option>
+                    <option value="5">其他</option>
+                  </select>  
+                </div> 
+
+                <div class="flex-auto ">
+                  <select v-model="element.playerAmt" 
+                        class=" flex w-full rounded-xl appearance-none  
+                                my-1 text-base text-white text-center
+                                inline-block bg-blue-500 font-bold border-b-4  
+                                hover:bg-blue-400
+                                border-blue-700
+                                hover:border-blue-500 "> 
+                    <option value="0">0位</option>
+                    <option value="1" selected >1位</option>
+                    <option value="2">2位</option>
+                    <option value="3">3位</option>
+                    <option value="4">4位</option>
+                    <option value="5">5位</option>
+                  </select> 
+                </div>
+              </div> 
+            </div>
+          </template>
+
+          <template class="bg-red-300" #header> 
+          </template>
+        </draggable>
+    </div> 
 </div>
  
 </template>
@@ -293,7 +359,9 @@ export default {
 
   data() {
     return {
+      score:"",
       v:[],
+      roomsize:[18,30,18],
       orders : [
           {title: 'Google Pixel', price: 3000},      
           {title: 'Samsung Galaxy S8', price: 2500},
@@ -313,17 +381,17 @@ export default {
       name: 'BootstrapVue',
       show: true,
       list: [
-        { name: "John 1", id: 0 ,ckintime :"13:10" ,ckoutime :"",stus :"1",color:"" ,playerAmt:2},
-        { name: "Joao 2", id: 1 ,ckintime :"" ,ckoutime :"",stus :"2",color:"",playerAmt:2},
-        { name: "Jean 3", id: 2 ,ckintime :"" ,ckoutime :"",stus :"1",color:"",playerAmt:3}
+        { name: "左  1", id: 0 ,ckintime :"13:10" ,ckoutime :"",stus :"1",color:"" ,playerAmt:2},
+        { name: "左  2", id: 1 ,ckintime :"" ,ckoutime :"",stus :"2",color:"",playerAmt:2},
+        { name: "左  3", id: 2 ,ckintime :"" ,ckoutime :"",stus :"1",color:"",playerAmt:3}
       ],
       list2: [
-        { name: "Jonny 4", id: 3,ckintime :""    ,stus :"1",color:"",playerAmt:5 },
-        { name: "Guisepe 3", id: 4 ,ckintime :"" ,stus :"2",color:"",playerAmt:1}
+        { name: "中中 4", id: 3,ckintime :""    ,stus :"1",color:"",playerAmt:5 },
+        { name: "中中 3", id: 4 ,ckintime :"" ,stus :"2",color:"",playerAmt:1}
       ],
       list3: [
-        { name: "Jonny 6", id: 3,ckintime :"" ,stus :"1",color:"" ,playerAmt:2},
-        { name: "Guisepe 2", id: 4,ckintime :"" ,stus :"2",color:"" ,playerAmt:4}
+        { name: "下下 6", id: 3,ckintime :"" ,stus :"1",color:"" ,playerAmt:2},
+        { name: "下下 2", id: 4,ckintime :"" ,stus :"2",color:"" ,playerAmt:4}
       ]
     };
   },
@@ -332,8 +400,11 @@ export default {
     show(newVal) {
       console.log('Alert is now ' + (newVal ? 'visible' : 'hidden'))
     }, 
-     
+      
   },
+  changeObjColor() {
+      this.objColor = this.objColor === 'red' ? 'blue' : 'red';
+    },
   created(){
     this.updateClock(); 
     this.sumList_One();
@@ -341,6 +412,9 @@ export default {
   },
   methods: { 
 
+RealPlayer(){
+  this.totalPlay(this.list,this.list2,this.list3);
+},
 totalPlay: function(ary1,ary2,ary3){ 
   let total_R1 = []; 
   let total_R2 = []; 
@@ -360,13 +434,8 @@ totalPlay: function(ary1,ary2,ary3){
 
 
   return this.v 
-},
-
-
-
-
-
-    sumList_One() {
+}, 
+ sumList_One() {
           
         var sum=0;
           for (var i = 0; i < this.list.length; i++) {
@@ -443,6 +512,16 @@ totalPlay: function(ary1,ary2,ary3){
     replace3: function() {
       this.list3 = [{   name: "Edgard"      ,ckintime :"" ,stus :"1", id: id++ }];
     }
+    ,
+    chkstaus: function() {
+      var letters = "0123456789ABCDEF";
+      var color = "#";
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+        this.colors = color;
+      }
+      console.log(this.colors);
+    },
   }, 
 };
 </script>
@@ -457,5 +536,17 @@ totalPlay: function(ary1,ary2,ary3){
 .toggle-checkbox:checked + .toggle-label {
   @apply: bg-green-400;
   background-color: #68D391;
+}
+
+.red {
+  color: red;
+}
+
+.blue {
+  color: blue;
+}
+
+.bold {
+  font-weight: bold;
 }
 </style>
