@@ -1,20 +1,39 @@
 <template>
-    <div class="row ">
-      <!-- <div class="col-12 bg-gray-200  "> 
+    <div class="w-100"> 
 
-        <span class="">本時段：{{ v[0] + v[1] + v[2] }}  </span>
-        <span class="">下時段預約人數： </span>
-        
-      </div> -->
+      <div class="bg-indigo-900   py-2 lg:px-4">
 
-      <div class="bg-indigo-900 py-2 lg:px-4">
-        
-        <p class="time pr-5 text-gray-100 text-right ">  目前時間：{{hour}}:{{mins}}:{{secs}}  </p> 
-       
- <!-- <v-text class="text-gray-100" >{{ list }}</v-text>
-<hr> -->
-<rawDisplayer class="text-gray-100" :value="list" title="List" />
-        
+         <div class="flex items-stretch pl-3">
+            <div class="flex-1 ">
+              <div class="  inline-block rounded-full h-4 w-4 
+                                  mt-1
+                                  bg-green-500 animate-pulse 
+                                  border-b-4 border-r-4
+                                  border-green-700 "> </div>
+                                  <v-text class="pr-2 text-gray-100 text-ms "> 使用中 </v-text>
+            </div>
+            <div class="flex-1 ">
+              <div class="  inline-block rounded-full h-4 w-4 
+                                  mt-1
+                                  bg-yellow-500 animate-pulse 
+                                  border-b-4 border-r-4
+                                  border-yellow-700 "> </div>
+                                  <v-text class="pr-2 text-gray-100 text-ms "> 請提醒 </v-text>
+            </div>
+            <div class="flex-1 ">
+              <div class="  inline-block rounded-full h-4 w-4 
+                                  mt-1 animate-pulse
+                                  border-b-4 border-r-4
+                                  bg-red-500  
+                                  border-red-700 "> </div> 
+                                  <v-text class="pr-2 text-gray-100 text-ms "> 逾時 </v-text>
+            </div>
+            <div class="flex-2 ">
+              <p class="time mt-1 pr-5 text-gray-100 text-right ">  
+                 時間：{{hour}}:{{mins}}:{{secs}}  </p> 
+            </div>
+          </div> 
+          
         <div role="alert" class="flex px-2 pb-2 bg-indigo-800 items-center text-indigo-100 leading-none  rounded-full flex lg:inline-flex">
           <div class="flex-auto ">
               <span class=" rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">
@@ -58,6 +77,7 @@
 
 
   <div class="flex items-stretch items-center  "> 
+
     <div class="flex-1 self-start"> 
     <div class="text-center md:text-left bg-blue-100
                 md:items-center md:justify-between pt-4 pb-2 mt-0 ">
@@ -72,90 +92,110 @@
         </div> 
 
         <span class="text-gray-900 text-sm ">操作建議提示</span>  
-      </div>  
-      <draggable
-        id="first"
-        data-source="juju"
-        :list="list"
-        class="list-group bg-gray-400 focus:outline-none focus:ring focus:border-blue-300"
-        group="a"
-        item-key="name"
-      >
-        <template #item="{ element }">
-          <div class=" bg-gray-300 px-1 my-1.5 mx-1.5 border-b-8 border-gray-600 rounded-xl shadow "> 
-            <!-- <input type="time" value="13:30"  /> -->
-            <v-text class=" pl-3 text-gray-600 text-sm "> Start Time</v-text>
-            <input type="time" id="appt" name="appt" v-model="element.ckintime" @change="setAlarm(element.ckintime)"
-                   placeholder='12:00am'
-                   class="w-full text-sm text-gray-400 
-                   rounded-xl mb-1 py-1 text-center
-                   focus:outline-none focus:ring focus:border-blue-300"
-                   min="06:00" max="22:00" required  >   
+        </div>  
+        <draggable
+          id="first"
+          data-source="juju"
+          :list="list"
+          class="list-group bg-gray-400 focus:outline-none focus:ring focus:border-blue-300"
+          group="a"
+          item-key="name"
+        >
+          <template #item="{ element }">
+            <div class=" bg-gray-300 px-1 my-1.5 mx-1.5 border-b-8 border-gray-600 rounded-xl shadow "> 
+              <v-text class=" pl-3 text-gray-600 text-sm "> Start Time</v-text>
+              <input type="time" id="appt" name="appt" 
 
-            <!-- <div v-if="element.ckintime >=hour"   class="text-xs text-success">很棒，你及格了！</div>
-            <div v-else="element.ckintime <=hour" class="text-xs text-danger">不及格！</div> -->
 
-            <input type="text" name="price" id="price" v-model="element.name"
-                              class="w-full  text-gray-400 rounded-full my-1 py-1 text-center 
-                              focus:outline-none focus:ring focus:border-blue-300" 
-                              placeholder="誰報名？"  >  
+                    @change="setAlarm(element.ckintime)" 
+                    v-model="element.ckintime" 
+                    placeholder='12:00am'
+                    class="w-full text-sm text-gray-500 bg-gray-100
+                    rounded-xl mb-1 py-1 text-center
+                    focus:outline-none focus:ring focus:border-blue-300"
+                    min="06:00" max="22:00" required  >    
 
-            <div class="flex flex-row items-center"> 
-              <div class="flex-auto "> 
+              <input type="text" name="price" id="price" v-model="element.name"
+                                class="w-full  text-gray-400 rounded-full my-1 py-1 text-center 
+                                focus:outline-none focus:ring focus:border-blue-300" 
+                                placeholder="誰報名？"  >  
 
-                  <!-- <input type="text" v-model="score" class="form-control"> -->
+              <div class="flex flex-row items-center my-1"> 
+                <div class="flex-auto ">   
 
-                  <div v-if="element.ckintime.split(':', 2)[0]+1<=hour  " 
-                       class="  inline-block rounded-full h-4 w-4 
-                                mt-1
-                                bg-green-500 animate-pulse 
-                                border-b-4 border-r-4
-                                border-green-700 "> </div>
-                  <div v-else="element.ckintime.split(':', 2)[0]+1>=hour "   
-                       class="  inline-block rounded-full h-4 w-4 
-                                mt-1 animate-pulse
-                                border-b-4 border-r-4
-                                bg-red-500  
-                                border-red-700 "> </div> 
-                  </div>
-              
-              <div class="flex-auto ">
-                <select v-model="element.stus"   
-                        class=" inline-block rounded-xl appearance-none 
-                                text-base text-white text-center 
-                                my-1 px-1 bg-blue-400"> 
-                  <option value="1" selected disabled hidden >首次</option>
-                  <option value="2">加時</option>
-                  <option value="3">離場</option>
-                  <option value="4">待確認</option>
-                  <option value="5">其他</option>
-                </select>  
+                    <div v-if="element.ckintime.split(':', 2)[0]+1< hour  " 
+                        class="  inline-block rounded-full h-4 w-4 
+                                  mt-1
+                                  bg-green-500 animate-pulse 
+                                  border-b-4 border-r-4
+                                  border-green-700 "> </div> 
+
+                    <!-- <div v-else-if="element.ckintime.split(':', 2)[1]-10>= mins && element.ckintime.split(':', 2)[0]+1 < hour"   
+                        class="  inline-block rounded-full h-4 w-4 
+                                  mt-1 animate-pulse
+                                  border-b-4 border-r-4
+                                  bg-yellow-500  
+                                  border-yellow-700 "> </div>  2)[0]+1>= hour  [1]>= mins-->
+
+                    <div v-else-if="element.ckintime.split(':', 2)[0]+1>= hour "   
+                        class="  inline-block rounded-full h-4 w-4 
+                                  mt-1 animate-pulse
+                                  border-b-4 border-r-4
+                                  bg-yellow-500  
+                                  border-yellow-700 "> </div>
+
+                </div>
+                
+                <div class="flex-auto ">
+                  <select v-model="element.stus"   
+                          class=" inline-block appearance-none 
+                                  rounded-l-xl border-blue-700 border-b-4
+                                  text-base text-white text-center 
+                                  my-1  bg-blue-400"> 
+                    <option value="1" selected disabled hidden >首次</option>
+                    <option value="2">加時</option>
+                    <option value="3">離場</option>
+                    <option value="4">待確認</option>
+                    <option value="5">其他</option>
+                  </select>  
+                
+                  <select v-model="element.playerAmt" 
+                        class=" appearance-none rounded-r-xl pl-1  
+                                text-base text-white text-center
+                                inline-block bg-blue-500 font-bold border-b-4  
+                                hover:bg-blue-400
+                                border-blue-700
+                                hover:border-blue-500 "> 
+                    <option value="0">0人</option>
+                    <option value="1" selected >1人</option>
+                    <option value="2">2人</option>
+                    <option value="3">3人</option>
+                    <option value="4">4人</option>
+                    <option value="5">5人</option>
+                    <option value="6">6人</option>
+                    <option value="7">7人</option>
+                    <option value="8">8人</option>
+                    <option value="9">9人</option>
+                    <option value="10">10人</option>
+                    <option value="11">11人</option>
+                    <option value="12">12人</option>
+                    <option value="13">13人</option>
+                    <option value="14">14人</option>
+                    <option value="15">15人</option>
+                    <option value="16">16人</option>
+                    <option value="17">17人</option>
+                    <option value="18">18人</option>
+                    <option value="19">19人</option>
+                    <option value="20">20人</option>
+                  </select> 
+                </div> 
               </div> 
-
-              <div class="flex-auto ">
-                <select v-model="element.playerAmt" 
-                      class=" flex w-full rounded-xl appearance-none  
-                              my-1 text-base text-white text-center
-                              inline-block bg-blue-500 font-bold border-b-4  
-                              hover:bg-blue-400
-                              border-blue-700
-                              hover:border-blue-500 "> 
-                  <option value="0">0位</option>
-                  <option value="1" selected >1位</option>
-                  <option value="2">2位</option>
-                  <option value="3">3位</option>
-                  <option value="4">4位</option>
-                  <option value="5">5位</option>
-                </select> 
-              </div>
-            </div> 
-          </div>
-        </template>
-
-        <template #header> 
-        </template>
-      </draggable>
-  </div>
+            </div>
+          </template> 
+          <template #header> 
+          </template>
+        </draggable>
+    </div>
 
     <div class="flex-1 self-start"> 
       <div class="text-center md:text-left bg-blue-200 
@@ -187,7 +227,7 @@
               <v-text class=" pl-3 text-gray-600 text-sm "> Start Time</v-text>
               <input type="time" id="appt" name="appt" v-model="element.ckintime" @change="setAlarm(element.ckintime)"
                     placeholder='12:00am'
-                    class="w-full text-sm text-gray-400 
+                    class="w-full text-sm text-gray-500 bg-gray-100 
                     rounded-xl mb-1 py-1 text-center
                     focus:outline-none focus:ring focus:border-blue-300"
                     min="06:00" max="22:00" required  >
@@ -206,49 +246,58 @@
                                 border-b-4 border-r-4
                                 border-gray-600 ">
                   </div> 
-                </div>
-                
+                </div> 
                 <div class="flex-auto ">
                   <select v-model="element.stus"   
-                          class=" inline-block rounded-xl appearance-none 
+                          class=" inline-block appearance-none 
+                                  rounded-l-xl border-blue-700 border-b-4
                                   text-base text-white text-center 
-                                  my-1 px-1 bg-blue-400"> 
+                                  my-1  bg-blue-400"> 
                     <option value="1" selected disabled hidden >首次</option>
                     <option value="2">加時</option>
                     <option value="3">離場</option>
                     <option value="4">待確認</option>
                     <option value="5">其他</option>
                   </select>  
-                </div> 
-
-                <div class="flex-auto ">
+                
                   <select v-model="element.playerAmt" 
-                        class=" flex w-full rounded-xl appearance-none  
-                                my-1 text-base text-white text-center
+                        class=" appearance-none rounded-r-xl pl-1  
+                                text-base text-white text-center
                                 inline-block bg-blue-500 font-bold border-b-4  
                                 hover:bg-blue-400
                                 border-blue-700
                                 hover:border-blue-500 "> 
-                    <option value="0">0位</option>
-                    <option value="1" selected >1位</option>
-                    <option value="2">2位</option>
-                    <option value="3">3位</option>
-                    <option value="4">4位</option>
-                    <option value="5">5位</option>
+                    <option value="0">0人</option>
+                    <option value="1" selected >1人</option>
+                    <option value="2">2人</option>
+                    <option value="3">3人</option>
+                    <option value="4">4人</option>
+                    <option value="5">5人</option>
+                    <option value="6">6人</option>
+                    <option value="7">7人</option>
+                    <option value="8">8人</option>
+                    <option value="9">9人</option>
+                    <option value="10">10人</option>
+                    <option value="11">11人</option>
+                    <option value="12">12人</option>
+                    <option value="13">13人</option>
+                    <option value="14">14人</option>
+                    <option value="15">15人</option>
+                    <option value="16">16人</option>
+                    <option value="17">17人</option>
+                    <option value="18">18人</option>
+                    <option value="19">19人</option>
+                    <option value="20">20人</option>
                   </select> 
                 </div>
-              </div> 
-              
-  
-              
-              
+              </div>  
             </div>
-          </template>
-
+          </template> 
           <template #header> 
           </template>
         </draggable>
     </div> 
+
     <div class="flex-1 self-start"> 
       <div class="text-center md:text-left bg-blue-100 
                 md:items-center md:justify-between pt-4 pb-2 mt-0 ">
@@ -277,7 +326,7 @@
               <v-text class=" pl-3 text-gray-600 text-sm "> Start Time</v-text> 
               <input type="time" id="appt" name="appt" v-model="element.ckintime" @change="setAlarm(element.ckintime)"
                     placeholder='12:00am'
-                    class="w-full text-sm text-gray-400 
+                    class="w-full text-sm text-gray-500 bg-gray-100
                     rounded-xl mb-1 py-1 text-center
                     focus:outline-none focus:ring focus:border-blue-300"
                     min="06:00" max="22:00" required  >
@@ -304,41 +353,54 @@
                 
                 <div class="flex-auto ">
                   <select v-model="element.stus"   
-                          class=" inline-block rounded-xl appearance-none 
+                          class=" inline-block appearance-none 
+                                  rounded-l-xl border-blue-700 border-b-4
                                   text-base text-white text-center 
-                                  my-1 px-1 bg-blue-400"> 
+                                  my-1  bg-blue-400"> 
                     <option value="1" selected disabled hidden >首次</option>
                     <option value="2">加時</option>
                     <option value="3">離場</option>
                     <option value="4">待確認</option>
                     <option value="5">其他</option>
                   </select>  
-                </div> 
-
-                <div class="flex-auto ">
+                
                   <select v-model="element.playerAmt" 
-                        class=" flex w-full rounded-xl appearance-none  
-                                my-1 text-base text-white text-center
+                        class=" appearance-none rounded-r-xl pl-1  
+                                text-base text-white text-center
                                 inline-block bg-blue-500 font-bold border-b-4  
                                 hover:bg-blue-400
                                 border-blue-700
                                 hover:border-blue-500 "> 
-                    <option value="0">0位</option>
-                    <option value="1" selected >1位</option>
-                    <option value="2">2位</option>
-                    <option value="3">3位</option>
-                    <option value="4">4位</option>
-                    <option value="5">5位</option>
+                    <option value="0">0人</option>
+                    <option value="1" selected >1人</option>
+                    <option value="2">2人</option>
+                    <option value="3">3人</option>
+                    <option value="4">4人</option>
+                    <option value="5">5人</option>
+                    <option value="6">6人</option>
+                    <option value="7">7人</option>
+                    <option value="8">8人</option>
+                    <option value="9">9人</option>
+                    <option value="10">10人</option>
+                    <option value="11">11人</option>
+                    <option value="12">12人</option>
+                    <option value="13">13人</option>
+                    <option value="14">14人</option>
+                    <option value="15">15人</option>
+                    <option value="16">16人</option>
+                    <option value="17">17人</option>
+                    <option value="18">18人</option>
+                    <option value="19">19人</option>
+                    <option value="20">20人</option>
                   </select> 
                 </div>
               </div> 
             </div>
-          </template>
-
-          <template class="bg-red-300" #header> 
+          </template> 
+          <template #header> 
           </template>
         </draggable>
-    </div> 
+    </div>  
 </div>
  
 </template>
@@ -448,9 +510,13 @@ totalPlay: function(ary1,ary2,ary3){
 
       },
     setAlarm(ckintm) { 
+
+
       var temp_T = ckintm.split(':', 2);
           temp_T[0] = parseInt(temp_T[0]) + 1; 
-      var return_T = temp_T[0] + temp_T[1]
+      var return_T = temp_T[0] + " : "+ temp_T[1]
+
+
       alert("test = " + return_T );  
 
       // var date = new Date(); // Todays date - the Date() constructor will default to the current date/time if no value is passed to it
@@ -495,7 +561,10 @@ totalPlay: function(ary1,ary2,ary3){
     },  
      
     add: function() {
-      this.list.push({ name: "東北貴賓" + id, id: id++ });
+      // this.list.push({ name: "東北貴賓" + id, id: id++ });
+      this.list.push({ name: "東北貴賓" + id, id: id++ ,ckintime :"13:10" ,ckoutime :"",stus :"1",color:"" ,playerAmt:2});
+
+       
     },
     replace: function() {
       this.list = [{ name: "Edgard", id: id++ }];
