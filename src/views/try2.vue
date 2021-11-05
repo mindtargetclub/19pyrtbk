@@ -106,7 +106,7 @@
               <div class="flex w-full">
 
                   <div class="flex-auto "> 
-                     <v-text class=" text-gray-600 text-sm ">入場時間設定</v-text>
+                     <v-text class=" text-gray-600 text-sm ">入場時間</v-text>
                   </div>
 
                 <div class="flex-auto ">   
@@ -154,7 +154,7 @@
 
               <div class="flex flex-row items-center my-1">  
                 
-                <div class="flex-auto ">
+                <div class="flex-1 ">
                   <select v-model="element.stus"   
                           class=" inline-block appearance-none 
                                   rounded-l-xl border-blue-700 border-b-4
@@ -168,7 +168,7 @@
                   </select>  
                 
                   <select v-model="element.playerAmt" 
-                        class=" appearance-none rounded-r-xl pl-1  
+                        class=" appearance-none rounded-r-xl 
                                 text-base text-white text-center
                                 inline-block bg-blue-500 font-bold border-b-4  
                                 hover:bg-blue-400
@@ -232,7 +232,42 @@
           <template #item="{ element }"> 
             
             <div class=" bg-gray-300 px-1 my-1.5 mx-1.5 border-b-8 border-gray-500 rounded-xl shadow "> 
-              <v-text class=" pl-3 text-gray-600 text-sm "> Start Time</v-text>
+             <div class="flex w-full">
+
+                  <div class="flex-auto "> 
+                     <v-text class=" text-gray-600 text-sm ">入場時間</v-text>
+                  </div>
+
+                <div class="flex-auto ">   
+                      <div v-if="element.ckintime.split(':', 2)[0]+1< hour  " 
+                          class="  inline-block rounded-full h-4 w-4 
+                                    mt-1
+                                    bg-green-500 animate-pulse 
+                                    border-b-4 border-r-4
+                                    border-green-700 "> </div> 
+
+                      <!-- 
+                        
+ <v-text class="text-gray-600 text-sm "> 提示</v-text>
+                        <div v-else-if="element.ckintime.split(':', 2)[1]-10>= mins && element.ckintime.split(':', 2)[0]+1 < hour"   
+                          class="  inline-block rounded-full h-4 w-4 
+                                    mt-1 animate-pulse
+                                    border-b-4 border-r-4
+                                    bg-yellow-500  
+                                    border-yellow-700 "> </div>  2)[0]+1>= hour  [1]>= mins-->
+
+                      <div v-else-if="element.ckintime.split(':', 2)[0]+1>= hour "   
+                          class="  inline-block rounded-full h-4 w-4 
+                                    mt-1 animate-pulse
+                                    border-b-4 border-r-4
+                                    bg-yellow-500  
+                                    border-yellow-700 "> </div>
+
+                  </div>
+                </div>
+              
+              
+              
               <input type="time" id="appt" name="appt" v-model="element.ckintime" @change="setAlarm(element.ckintime)"
                     placeholder='12:00am'
                     class="w-full text-sm text-gray-500 bg-gray-100 
@@ -331,7 +366,40 @@
         >
           <template #item="{ element }">
             <div class=" bg-gray-300 px-1 my-1.5 mx-1.5 border-b-8 border-gray-600 rounded-xl shadow "> 
-              <v-text class=" pl-3 text-gray-600 text-sm "> Start Time</v-text> 
+              <div class="flex w-full">
+
+                  <div class="flex-auto "> 
+                     <v-text class=" text-gray-600 text-sm ">入場時間</v-text>
+                  </div>
+
+                <div class="flex-auto ">   
+                      <div v-if="element.ckintime.split(':', 2)[0]+1< hour  " 
+                          class="  inline-block rounded-full h-4 w-4 
+                                    mt-1
+                                    bg-green-500 animate-pulse 
+                                    border-b-4 border-r-4
+                                    border-green-700 "> </div> 
+
+                      <!-- 
+                        
+ <v-text class="text-gray-600 text-sm "> 提示</v-text>
+                        <div v-else-if="element.ckintime.split(':', 2)[1]-10>= mins && element.ckintime.split(':', 2)[0]+1 < hour"   
+                          class="  inline-block rounded-full h-4 w-4 
+                                    mt-1 animate-pulse
+                                    border-b-4 border-r-4
+                                    bg-yellow-500  
+                                    border-yellow-700 "> </div>  2)[0]+1>= hour  [1]>= mins-->
+
+                      <div v-else-if="element.ckintime.split(':', 2)[0]+1>= hour "   
+                          class="  inline-block rounded-full h-4 w-4 
+                                    mt-1 animate-pulse
+                                    border-b-4 border-r-4
+                                    bg-yellow-500  
+                                    border-yellow-700 "> </div>
+
+                  </div>
+                </div>
+              
               <input type="time" id="appt" name="appt" v-model="element.ckintime" @change="setAlarm(element.ckintime)"
                     placeholder='12:00am'
                     class="w-full text-sm text-gray-500 bg-gray-100
