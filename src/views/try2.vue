@@ -158,7 +158,7 @@
                   <select v-model="element.stus"   
                           class=" inline-block appearance-none 
                                   rounded-l-xl border-blue-700 border-b-4
-                                  text-base text-white text-center 
+                                  text-xs text-white text-center 
                                   my-1  bg-blue-400"> 
                     <option value="1" selected disabled hidden >首次</option>
                     <option value="2">加時</option>
@@ -169,7 +169,7 @@
                 
                   <select v-model="element.playerAmt" 
                         class=" appearance-none rounded-r-xl 
-                                text-base text-white text-center
+                                text-xs text-white text-center
                                 inline-block bg-blue-500 font-bold border-b-4  
                                 hover:bg-blue-400
                                 border-blue-700
@@ -282,19 +282,12 @@
                                 placeholder="誰報名？"  > 
 
               <div class="flex flex-row items-center"> 
-                <div class="flex-auto ">
-                  <div class="  inline-block rounded-full h-4 w-4 
-                                mt-1
-                                bg-green-500 animate-pulse 
-                                border-b-4 border-r-4
-                                border-gray-600 ">
-                  </div> 
-                </div> 
+                 
                 <div class="flex-auto ">
                   <select v-model="element.stus"   
                           class=" inline-block appearance-none 
                                   rounded-l-xl border-blue-700 border-b-4
-                                  text-base text-white text-center 
+                                  text-xs text-white text-center 
                                   my-1  bg-blue-400"> 
                     <option value="1" selected disabled hidden >首次</option>
                     <option value="2">加時</option>
@@ -305,7 +298,7 @@
                 
                   <select v-model="element.playerAmt" 
                         class=" appearance-none rounded-r-xl pl-1  
-                                text-base text-white text-center
+                                text-xs text-white text-center
                                 inline-block bg-blue-500 font-bold border-b-4  
                                 hover:bg-blue-400
                                 border-blue-700
@@ -418,20 +411,13 @@
                       placeholder="誰報名？"  > 
 
               <div class="flex flex-row items-center"> 
-                <div class="flex-auto ">
-                  <div class="  inline-block rounded-full h-4 w-4 
-                                mt-1
-                                bg-green-500 animate-pulse 
-                                border-b-4 border-r-4
-                                border-gray-600 ">
-                  </div> 
-                </div>
+                 
                 
                 <div class="flex-auto ">
                   <select v-model="element.stus"   
                           class=" inline-block appearance-none 
                                   rounded-l-xl border-blue-700 border-b-4
-                                  text-base text-white text-center 
+                                  text-xs text-white text-center 
                                   my-1  bg-blue-400"> 
                     <option value="1" selected disabled hidden >首次</option>
                     <option value="2">加時</option>
@@ -442,7 +428,7 @@
                 
                   <select v-model="element.playerAmt" 
                         class=" appearance-none rounded-r-xl pl-1  
-                                text-base text-white text-center
+                                text-xs text-white text-center
                                 inline-block bg-blue-500 font-bold border-b-4  
                                 hover:bg-blue-400
                                 border-blue-700
