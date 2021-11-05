@@ -10,7 +10,7 @@
                                   bg-green-500 animate-pulse 
                                   border-b-4 border-r-4
                                   border-green-700 "> </div>
-                                  <v-text class="pr-2 text-gray-100 text-ms "> 使用中 </v-text>
+                                  <v-text class="pr-2 text-gray-100 text-xs "> 使用中 </v-text>
             </div>
             <div class="flex-1 ">
               <div class="  inline-block rounded-full h-4 w-4 
@@ -18,7 +18,7 @@
                                   bg-yellow-500 animate-pulse 
                                   border-b-4 border-r-4
                                   border-yellow-700 "> </div>
-                                  <v-text class="pr-2 text-gray-100 text-ms "> 請提醒 </v-text>
+                                  <v-text class="pr-2 text-gray-100 text-xs "> 請提醒 </v-text>
             </div>
             <div class="flex-1 ">
               <div class="  inline-block rounded-full h-4 w-4 
@@ -26,7 +26,7 @@
                                   border-b-4 border-r-4
                                   bg-red-500  
                                   border-red-700 "> </div> 
-                                  <v-text class="pr-2 text-gray-100 text-ms "> 逾時 </v-text>
+                                  <v-text class="pr-2 text-gray-100 text-xs "> 逾時 </v-text>
             </div>
             <div class="flex-2 ">
               <p class="time mt-1 pr-5 text-gray-100 text-right ">  
@@ -103,8 +103,40 @@
         >
           <template #item="{ element }">
             <div class=" bg-gray-300 px-1 my-1.5 mx-1.5 border-b-8 border-gray-600 rounded-xl shadow "> 
-              <v-text class=" pl-3 text-gray-600 text-sm "> Start Time</v-text>
-              <input type="time" id="appt" name="appt" 
+              <div class="flex w-full">
+
+                  <div class="flex-auto "> 
+                     <v-text class=" text-gray-600 text-sm ">入場時間設定</v-text>
+                  </div>
+
+                <div class="flex-auto ">   
+                      <div v-if="element.ckintime.split(':', 2)[0]+1< hour  " 
+                          class="  inline-block rounded-full h-4 w-4 
+                                    mt-1
+                                    bg-green-500 animate-pulse 
+                                    border-b-4 border-r-4
+                                    border-green-700 "> </div> 
+
+                      <!-- 
+                        
+ <v-text class="text-gray-600 text-sm "> 提示</v-text>
+                        <div v-else-if="element.ckintime.split(':', 2)[1]-10>= mins && element.ckintime.split(':', 2)[0]+1 < hour"   
+                          class="  inline-block rounded-full h-4 w-4 
+                                    mt-1 animate-pulse
+                                    border-b-4 border-r-4
+                                    bg-yellow-500  
+                                    border-yellow-700 "> </div>  2)[0]+1>= hour  [1]>= mins-->
+
+                      <div v-else-if="element.ckintime.split(':', 2)[0]+1>= hour "   
+                          class="  inline-block rounded-full h-4 w-4 
+                                    mt-1 animate-pulse
+                                    border-b-4 border-r-4
+                                    bg-yellow-500  
+                                    border-yellow-700 "> </div>
+
+                  </div>
+                </div>
+             <input type="time" id="appt" name="appt" 
 
 
                     @change="setAlarm(element.ckintime)" 
@@ -120,31 +152,7 @@
                                 focus:outline-none focus:ring focus:border-blue-300" 
                                 placeholder="誰報名？"  >  
 
-              <div class="flex flex-row items-center my-1"> 
-                <div class="flex-auto ">   
-
-                    <div v-if="element.ckintime.split(':', 2)[0]+1< hour  " 
-                        class="  inline-block rounded-full h-4 w-4 
-                                  mt-1
-                                  bg-green-500 animate-pulse 
-                                  border-b-4 border-r-4
-                                  border-green-700 "> </div> 
-
-                    <!-- <div v-else-if="element.ckintime.split(':', 2)[1]-10>= mins && element.ckintime.split(':', 2)[0]+1 < hour"   
-                        class="  inline-block rounded-full h-4 w-4 
-                                  mt-1 animate-pulse
-                                  border-b-4 border-r-4
-                                  bg-yellow-500  
-                                  border-yellow-700 "> </div>  2)[0]+1>= hour  [1]>= mins-->
-
-                    <div v-else-if="element.ckintime.split(':', 2)[0]+1>= hour "   
-                        class="  inline-block rounded-full h-4 w-4 
-                                  mt-1 animate-pulse
-                                  border-b-4 border-r-4
-                                  bg-yellow-500  
-                                  border-yellow-700 "> </div>
-
-                </div>
+              <div class="flex flex-row items-center my-1">  
                 
                 <div class="flex-auto ">
                   <select v-model="element.stus"   
@@ -562,7 +570,7 @@ totalPlay: function(ary1,ary2,ary3){
      
     add: function() {
       // this.list.push({ name: "東北貴賓" + id, id: id++ });
-      this.list.push({ name: "東北貴賓" + id, id: id++ ,ckintime :"13:10" ,ckoutime :"",stus :"1",color:"" ,playerAmt:2});
+      this.list.push({ name: "東北貴賓" + id, id: id++ ,ckintime :"13:10" ,ckoutime :"",stus :"1",color:"" ,playerAmt:1});
 
        
     },
